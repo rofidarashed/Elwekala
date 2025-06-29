@@ -20,7 +20,8 @@ class HomeProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FavCubit, FavState>(
       builder: (context, state) {
-        Color buttonColor = Colors.grey;
+        final isFavorited = context.read<FavCubit>().isFav(productModel.id);
+
         return GestureDetector(
           child: Card(
             margin: EdgeInsets.symmetric(horizontal: 50, vertical: 8),
@@ -31,7 +32,12 @@ class HomeProductWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.network(productModel.image, height: 70),
+                      Image.network(
+                        productModel.image,
+                        height: 70,
+                        width: 100,
+                        fit: BoxFit.fill,
+                      ),
                       Text(
                         productModel.price.toString(),
                         style: TextStyle(
@@ -54,11 +60,26 @@ class HomeProductWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
-                        child: Icon(Icons.favorite, color: buttonColor),
+                        child: Icon(
+                          isFavorited ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorited ? Colors.red : Colors.grey,
+                        ),
                         onTap: () {
-                          context.read<FavCubit>().addFavCubit(
-                            id: productModel.id,
-                          );
+                          if (isFavorited) {
+                            context.read<FavCubit>().deleteFavCubit(
+                              id: productModel.id,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Removed from favorites')),
+                            );
+                          } else {
+                            context.read<FavCubit>().addFavCubit(
+                              id: productModel.id,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Add to favorites')),
+                            );
+                          }
                         },
                       ),
                       InkWell(
