@@ -1,3 +1,4 @@
+import 'package:ap2/feature/cart/cubit/cart_cubit.dart';
 import 'package:ap2/feature/fav/cubit/fav_cubit.dart';
 import 'package:ap2/feature/home/cubit/home_cubit.dart';
 import 'package:ap2/feature/home/view/screens/home_screen.dart';
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeCubit()..dataCubit()),
-        BlocProvider(create: (context) => FavCubit()),
+        BlocProvider(create: (context) => FavCubit()..getFavCubit()),
+        BlocProvider(create: (context) => CartCubit()..getCartCubit()),
       ],
       child: MaterialApp(home: HomeScreen(), debugShowCheckedModeBanner: false),
     );
