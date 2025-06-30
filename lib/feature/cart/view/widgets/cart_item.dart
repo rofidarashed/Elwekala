@@ -1,12 +1,12 @@
-import 'package:ap2/feature/cart/cubit/cart_cubit.dart';
-import 'package:ap2/feature/cart/cubit/cart_state.dart';
-import 'package:ap2/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/cart/cubit/cart_cubit.dart';
+import 'package:el_wekala/feature/cart/cubit/cart_state.dart';
+import 'package:el_wekala/feature/cart/model/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartItem extends StatelessWidget {
-  final ProductModel productModel;
-  const CartItem({super.key, required this.productModel});
+  final CartModel cartMiodel;
+  const CartItem({super.key, required this.cartMiodel});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,21 @@ class CartItem extends StatelessWidget {
       builder: (context, state) {
         return Row(
           children: [
-            Image.network(productModel.image, height: 100, width: 50),
-            Text(productModel.name),
+            Image.network(cartMiodel.image, height: 100, width: 50),
+            Text(cartMiodel.name),
             Spacer(),
             InkWell(
               child: Icon(Icons.delete),
               onTap: () => context.read<CartCubit>().deleteCartCubit(
-                productId: productModel.id,
+                productId: cartMiodel.id,
+              ),
+            ),
+
+            InkWell(
+              child: Icon(Icons.edit),
+              onTap: () => context.read<CartCubit>().updateCartCubit(
+                productId: cartMiodel.id,
+                quantity: cartMiodel.quantity,
               ),
             ),
           ],

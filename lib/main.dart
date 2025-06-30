@@ -1,4 +1,4 @@
-import 'package:ap2/my_app.dart';
+import 'package:el_wekala/my_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {

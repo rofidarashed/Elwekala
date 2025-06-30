@@ -1,8 +1,7 @@
-
-import 'package:ap2/feature/fav/cubit/fav_state.dart';
-import 'package:ap2/feature/fav/data/favs_data.dart';
+import 'package:el_wekala/feature/fav/cubit/fav_state.dart';
+import 'package:el_wekala/feature/fav/data/favs_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ap2/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/home/model/product_model.dart';
 
 class FavCubit extends Cubit<FavState> {
   FavCubit() : super(FavInitial());
@@ -19,19 +18,19 @@ class FavCubit extends Cubit<FavState> {
     emit(FavLoading());
     await FavData.addFav(id: id);
     emit(FavAddSuccess());
-    await getFavCubit(); 
+    await getFavCubit();
   }
 
   Future<void> deleteFavCubit({required String id}) async {
     emit(FavLoading());
     await FavData.deleteFav(id: id);
     emit(FavDelete());
-    await getFavCubit(); 
+    await getFavCubit();
   }
 
   Future<void> getFavCubit() async {
     emit(FavLoading());
-    _favList = await FavData.getFav(); 
+    _favList = await FavData.getFav();
     emit(FavSuccess(list: _favList));
   }
 }

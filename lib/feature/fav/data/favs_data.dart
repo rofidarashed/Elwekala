@@ -1,4 +1,4 @@
-import 'package:ap2/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/home/model/product_model.dart';
 import 'package:dio/dio.dart';
 
 class FavData {

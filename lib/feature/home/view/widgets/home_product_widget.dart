@@ -1,111 +1,57 @@
-import 'package:ap2/feature/cart/cubit/cart_cubit.dart';
-import 'package:ap2/feature/details/view/details_screen.dart';
-import 'package:ap2/feature/fav/cubit/fav_state.dart';
-import 'package:ap2/feature/fav/cubit/fav_cubit.dart';
-import 'package:ap2/feature/fav/data/favs_data.dart';
-import 'package:ap2/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/details/view/screen/details_screen.dart';
+import 'package:el_wekala/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/home/view/widgets/custom_price_cart.dart';
+import 'package:el_wekala/feature/home/view/widgets/custom_product_image_fav.dart';
+import 'package:el_wekala/feature/home/view/widgets/custom_product_name.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeProductWidget extends StatelessWidget {
-  final FavData addFavs;
   final ProductModel productModel;
   const HomeProductWidget({
     super.key,
     required this.productModel,
-    required this.addFavs,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavCubit, FavState>(
-      builder: (context, state) {
-        final isFavorited = context.read<FavCubit>().isFav(productModel.id);
-
-        return GestureDetector(
-          child: Card(
-            margin: EdgeInsets.symmetric(horizontal: 50, vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.network(
-                        productModel.image,
-                        height: 70,
-                        width: 100,
-                        fit: BoxFit.fill,
-                      ),
-                      Text(
-                        productModel.price.toString(),
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    productModel.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    productModel.description,
-                    style: TextStyle(overflow: TextOverflow.ellipsis),
-                    maxLines: 1,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          isFavorited ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorited ? Colors.red : Colors.grey,
-                        ),
-                        onTap: () {
-                          if (isFavorited) {
-                            context.read<FavCubit>().deleteFavCubit(
-                              id: productModel.id,
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Removed from favorites')),
-                            );
-                          } else {
-                            context.read<FavCubit>().addFavCubit(
-                              id: productModel.id,
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Add to favorites')),
-                            );
-                          }
-                        },
-                      ),
-                      InkWell(
-                        child: Icon(Icons.shopping_cart, color: Colors.green),
-                        onTap: () {
-                          context.read<CartCubit>().addCartCubit(
-                            productId: productModel.id,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [const Color.fromARGB(255, 235, 230, 230), Colors.white],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomProductImage(productModel: productModel),
+              ProductNameStatus(productModel: productModel),
+              Text(
+                productModel.description,
+                style: TextStyle(overflow: TextOverflow.ellipsis),
+                maxLines: 1,
               ),
-            ),
+              SizedBox(height: 10),
+              CustomPriceAndCartIcon(productModel: productModel),
+            ],
           ),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) {
-                return DetailsScreen(productModel: productModel);
-              },
-            ),
-          ),
-        );
-      },
+        ),
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) {
+            return DetailsScreen(productModel: productModel);
+          },
+        ),
+      ),
     );
   }
 }

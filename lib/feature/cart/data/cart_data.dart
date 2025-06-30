@@ -1,4 +1,4 @@
-import 'package:ap2/feature/home/model/product_model.dart';
+import 'package:el_wekala/feature/cart/model/cart_model.dart';
 import 'package:dio/dio.dart';
 
 class CartData {
@@ -29,13 +29,29 @@ class CartData {
     return response.data;
   }
 
+  static updateCart({
+    required String productId,
+    required num quantity,
+  }) async {
+    var response = await dio.post(
+      "https://elwekala.onrender.com/cart",
+      data: {
+        "nationalId": "01026524572123",
+        "productId": productId,
+        "quantity": quantity,
+      },
+    );
+    print(response.data);
+    return response.data;
+  }
+
   static getCart() async {
     var response = await dio.get(
       "https://elwekala.onrender.com/cart/allProducts",
       data: {"nationalId": "01026524572123"},
     );
     List data = await response.data["products"];
-    List<dynamic> cartList = data.map((e) => ProductModel.fromJson(e)).toList();
+    List<dynamic> cartList = data.map((e) => CartModel.fromJson(e)).toList();
     print("+++++++++++$cartList");
     return cartList;
   }

@@ -1,6 +1,6 @@
-import 'package:ap2/feature/fav/cubit/fav_state.dart';
-import 'package:ap2/feature/fav/cubit/fav_cubit.dart';
-import 'package:ap2/feature/fav/view/widgets/fav_item.dart';
+import 'package:el_wekala/feature/fav/cubit/fav_state.dart';
+import 'package:el_wekala/feature/fav/cubit/fav_cubit.dart';
+import 'package:el_wekala/feature/fav/view/widgets/fav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

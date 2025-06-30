@@ -1,5 +1,5 @@
 class CartModel {
-  final String quantity;
+  final num quantity;
   final String id;
   final String status;
   final String category;

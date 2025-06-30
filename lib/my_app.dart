@@ -1,7 +1,7 @@
-import 'package:ap2/feature/cart/cubit/cart_cubit.dart';
-import 'package:ap2/feature/fav/cubit/fav_cubit.dart';
-import 'package:ap2/feature/home/cubit/home_cubit.dart';
-import 'package:ap2/feature/home/view/screens/home_screen.dart';
+import 'package:el_wekala/feature/cart/cubit/cart_cubit.dart';
+import 'package:el_wekala/feature/fav/cubit/fav_cubit.dart';
+import 'package:el_wekala/feature/home/cubit/home_cubit.dart';
+import 'package:el_wekala/feature/home/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
