@@ -39,7 +39,7 @@ class InputTextButton extends StatelessWidget {
           filled: true,
           fillColor: grayGreen,
           label: Text(labelText),
-          labelStyle: TextStyle(color: gray3),
+          labelStyle: TextStyle(color: textGreen),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           hintText: hintText,
           hintStyle: TextStyle(color: gray1),

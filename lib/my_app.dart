@@ -3,6 +3,7 @@ import 'package:el_wekala/feature/auth/view/screens/register_screen.dart';
 import 'package:el_wekala/feature/cart/cubit/cart_cubit.dart';
 import 'package:el_wekala/feature/fav/cubit/fav_cubit.dart';
 import 'package:el_wekala/feature/home/cubit/home_cubit.dart';
+import 'package:el_wekala/feature/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,8 +18,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FavCubit()..getFavCubit()),
         BlocProvider(create: (context) => CartCubit()..getCartCubit()),
         BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => ProfileCubit()),
       ],
-      child: MaterialApp(home: RegisterScreen(), debugShowCheckedModeBanner: false),
+      child: MaterialApp(
+        home: RegisterScreen(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

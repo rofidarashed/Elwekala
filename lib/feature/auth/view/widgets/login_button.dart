@@ -1,36 +1,28 @@
 import 'package:el_wekala/core/utils/colors/colors.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_cubit.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_state.dart';
-import 'package:el_wekala/feature/home/view/screens/home_screen.dart';
+import 'package:el_wekala/feature/home/view/screens/navigator_page.dart';
 import 'package:el_wekala/feature/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterButton extends StatelessWidget {
-  const RegisterButton({
+class LoginButton extends StatelessWidget {
+  const LoginButton({
     super.key,
-    required this.nameController,
     required this.emailController,
-    required this.phoneController,
-    required this.nationalIdController,
-    required this.genderController,
     required this.passwordController,
     required this.formKey,
   });
   final GlobalKey<FormState> formKey;
 
-  final TextEditingController nameController;
   final TextEditingController emailController;
-  final TextEditingController phoneController;
-  final TextEditingController nationalIdController;
-  final TextEditingController genderController;
   final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthAddSuccessState) {
+        if (state is AuthLoginSuccessState) {
           if (state.model.status == "error") {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -46,21 +38,16 @@ class RegisterButton extends StatelessWidget {
                 content: Text(state.model.message),
               ),
             );
-            try {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) {
-                    return HomeScreen();
-                  },
-                ),
-              );
-              context.read<ProfileCubit>().getProfileCubit(token: state.token!);
-            } catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Failed to load profile: $e")),
-              );
-            }
+            context.read<ProfileCubit>().getProfileCubit(token: state.token);
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) {
+                  return MainScreen();
+                },
+              ),
+            );
           }
         }
       },
@@ -73,16 +60,12 @@ class RegisterButton extends StatelessWidget {
             );
             return;
           }
-          context.read<AuthCubit>().authCubit(
-            name: nameController.text,
+          context.read<AuthCubit>().loginCubit(
             email: emailController.text,
-            phone: phoneController.text,
-            nationalId: nationalIdController.text,
-            gender: genderController.text,
             password: passwordController.text,
           );
         },
-        child: Text("Register", style: TextStyle(color: white)),
+        child: Text("Login", style: TextStyle(color: white)),
       ),
     );
   }

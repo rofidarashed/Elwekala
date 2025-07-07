@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MyValidators {
   static String? displayNamevalidator(String? displayName) {
     if (displayName == null || displayName.isEmpty) {
@@ -22,15 +24,12 @@ class MyValidators {
     return null;
   }
 
-  static String? phoneValidator(String? value) {
+  static String? phoneValidator(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return 'Please enter a phone';
     }
-    if (!value.startsWith('010')) {
-      return 'Phone number must start with 010';
-    }
-    if (value.length < 11 || value.length > 11) {
-      return 'Phone must be 11 characters long';
+    if (!RegExp(r'^01[0-2|5]\d{8}$').hasMatch(value)) {
+      return "Phone number must start with 010, 011, 012, or 015 \nand be 11 digits long";
     }
 
     return null;
@@ -67,7 +66,8 @@ class MyValidators {
     if (value == null || value.isEmpty) {
       return 'Please enter gender';
     }
-    if(value!="female"&&value!="male"){
+    if ((value != "female" && value != "Female") &&
+        (value != "male" && value != "Male")) {
       return 'Invalid gender, Please Enter female or male';
     }
     return null;
