@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/elements/my_validators.dart';
 import 'package:el_wekala/core/utils/colors/colors.dart';
+import 'package:el_wekala/core/widgets/password_text_field.dart';
 import 'package:el_wekala/feature/auth/view/widgets/input_text_button.dart';
 import 'package:el_wekala/feature/auth/view/widgets/login_button.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +32,7 @@ class LoginScreen extends StatelessWidget {
                     MyValidators.emailValidator(emailController.text),
                 prefixIcon: Icons.mail_outline,
               ),
-              InputTextButton(
-                labelText: "Password",
-                hintText: "********",
-                obscureText: true,
-                controller: passwordController,
-                validator: (v) => MyValidators.passwordValidator(v),
-                prefixIcon: Icons.password,
-              ),
+             PasswordTextField(controller: passwordController, labelText: "Password"),
               SizedBox(height: 100),
               LoginButton(
                 emailController: emailController,

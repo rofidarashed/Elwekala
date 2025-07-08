@@ -8,9 +8,8 @@ final class AuthLoadingState extends AuthState {}
 
 final class AuthAddSuccessState extends AuthState {
   final ResponseModel model;
-  final String? token;
 
-  AuthAddSuccessState({required this.model,required this.token, });
+  AuthAddSuccessState({required this.model,});
 }
 
 final class AuthUpdateImageState extends AuthState {}

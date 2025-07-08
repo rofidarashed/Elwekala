@@ -5,7 +5,7 @@ class ProfileModel {
   final String nationalId;
   final String gender;
   final String profileImage;
-  final String token;
+  final String? token;
 
   ProfileModel({
     required this.name,
@@ -24,7 +24,7 @@ class ProfileModel {
       nationalId: json['nationalId'],
       gender: json['gender'],
       profileImage: json['profileImage'],
-      token: json['token'],
+      token: json['token']??"",
     );
   }
 }

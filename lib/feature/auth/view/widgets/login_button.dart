@@ -21,9 +21,11 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
+        print("Bloc listner state is $state");
         if (state is AuthLoginSuccessState) {
           if (state.model.status == "error") {
+            print("current state is errorrrrrrrrr");
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: red,
@@ -32,14 +34,14 @@ class LoginButton extends StatelessWidget {
             );
           }
           if (state.model.status == "success") {
+            print("current state is success");
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: green,
                 content: Text(state.model.message),
               ),
             );
-            context.read<ProfileCubit>().getProfileCubit(token: state.token);
-
+            await context.read<ProfileCubit>().getProfileCubit();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(

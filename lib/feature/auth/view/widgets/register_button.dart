@@ -1,8 +1,7 @@
 import 'package:el_wekala/core/utils/colors/colors.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_cubit.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_state.dart';
-import 'package:el_wekala/feature/home/view/screens/home_screen.dart';
-import 'package:el_wekala/feature/profile/cubit/profile_cubit.dart';
+import 'package:el_wekala/feature/auth/view/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,8 +41,15 @@ class RegisterButton extends StatelessWidget {
           if (state.model.status == "success") {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                duration: Durations.medium4,
                 backgroundColor: green,
                 content: Text(state.model.message),
+              ),
+            );
+             ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: green,
+                content: Text("You're all set! Log in to get started. 😊"),
               ),
             );
             try {
@@ -51,11 +57,10 @@ class RegisterButton extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) {
-                    return HomeScreen();
+                    return LoginScreen();
                   },
                 ),
               );
-              context.read<ProfileCubit>().getProfileCubit(token: state.token!);
             } catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Failed to load profile: $e")),

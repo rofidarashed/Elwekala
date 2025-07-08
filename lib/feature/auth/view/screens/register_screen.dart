@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/elements/my_validators.dart';
 import 'package:el_wekala/core/utils/colors/colors.dart';
+import 'package:el_wekala/core/widgets/password_text_field.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_cubit.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_state.dart';
 import 'package:el_wekala/feature/auth/view/screens/login_screen.dart';
@@ -25,6 +26,8 @@ class RegisterScreen extends StatelessWidget {
   final TextEditingController genderController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +73,10 @@ class RegisterScreen extends StatelessWidget {
                       hintText: "01011111111",
                       obscureText: false,
                       controller: phoneController,
-                      validator: (_) =>
-                          MyValidators.phoneValidator(phoneController.text,context),
+                      validator: (_) => MyValidators.phoneValidator(
+                        phoneController.text,
+                        context,
+                      ),
                       prefixIcon: Icons.phone_outlined,
                     ),
                     InputTextButton(
@@ -92,14 +97,14 @@ class RegisterScreen extends StatelessWidget {
                       validator: (v) => MyValidators.genderValidator(value: v),
                       prefixIcon: Icons.female_outlined,
                     ),
-                    InputTextButton(
-                      labelText: "Password",
-                      hintText: "********",
-                      obscureText: true,
+                    PasswordTextField(
                       controller: passwordController,
-                      validator: (v) => MyValidators.passwordValidator(v),
-                      prefixIcon: Icons.password,
+                      validator: (p0) => MyValidators.passwordValidator(
+                        passwordController.text,
+                      ),
+                      labelText: "Password",
                     ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -115,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           child: Text(
                             "Login",
-                            style: TextStyle(color: textGreen),
+                            style: TextStyle(color: textGreen0),
                           ),
                         ),
                       ],
@@ -126,7 +131,8 @@ class RegisterScreen extends StatelessWidget {
                       phoneController: phoneController,
                       nationalIdController: nationalIdController,
                       genderController: genderController,
-                      passwordController: passwordController, formKey: _formKey,
+                      passwordController: passwordController,
+                      formKey: _formKey,
                     ),
                   ],
                 ),

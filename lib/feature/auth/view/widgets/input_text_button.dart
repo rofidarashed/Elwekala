@@ -36,19 +36,26 @@ class InputTextButton extends StatelessWidget {
         inputFormatters: textInputFormatter,
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon, color: defaultColor),
-          filled: true,
-          fillColor: grayGreen,
           label: Text(labelText),
-          labelStyle: TextStyle(color: textGreen),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
+          labelStyle: TextStyle(color: defaultColor),
+          floatingLabelStyle: TextStyle(color: defaultColor),
           hintText: hintText,
-          hintStyle: TextStyle(color: gray1),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(20),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(color: grayGreen0),
           ),
+          fillColor: white,
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(color: grayGreen),
+          ),
+
+          hintStyle: TextStyle(color: textGreen),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         ),
       ),
     );
   }
 }
+

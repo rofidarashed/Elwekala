@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:el_wekala/core/helper/cash_helper/cash_helper.dart';
 import 'package:el_wekala/feature/auth/model/response_model.dart';
 
 class AuthData {
@@ -31,8 +32,6 @@ class AuthData {
       var model = ResponseModel.fromJson(data);
       return model;
     } on DioException catch (e) {
-    
-   
       if (e.response != null) {
         var error = e.response!.data;
         print(error);
@@ -52,6 +51,7 @@ class AuthData {
       print('status messageeee${response.statusMessage}');
       var data = response.data;
       var model = ResponseModel.fromJson(data);
+      CashHelper.saveData(key: "token", value: model.userModel?.token ?? '');
       return model;
     } on DioException catch (e) {
       if (e.response != null) {

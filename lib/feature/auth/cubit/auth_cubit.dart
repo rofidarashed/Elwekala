@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:el_wekala/core/helper/values.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_state.dart';
 import 'package:el_wekala/feature/auth/data/auth_data.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String gender,
     required String password,
   }) async {
-        emit(AuthLoadingState());
+    emit(AuthLoadingState());
     var model = await AuthData.register(
       name: name,
       email: email,
@@ -41,14 +42,15 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       profileImage: profileImage ?? "",
     );
-    emit(AuthAddSuccessState(model: model , token: model!.token));
+    emit(AuthAddSuccessState(model: model));
   }
 
   loginCubit({required String email, required String password}) async {
     try {
       emit(AuthLoadingState());
       var model = await AuthData.login(email: email, password: password);
-      emit(AuthLoginSuccessState(model: model, token: model.token));
+      print("login success $model");
+      emit(AuthLoginSuccessState(model: model, token: token));
     } catch (e) {
       ScaffoldMessenger(child: SnackBar(content: Text("Error $e")));
     }
