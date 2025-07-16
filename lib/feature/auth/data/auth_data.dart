@@ -52,6 +52,7 @@ class AuthData {
       var data = response.data;
       var model = ResponseModel.fromJson(data);
       CashHelper.saveData(key: "token", value: model.userModel?.token ?? '');
+      CashHelper.saveData(key: "email", value: model.userModel?.email ?? '');
       return model;
     } on DioException catch (e) {
       if (e.response != null) {

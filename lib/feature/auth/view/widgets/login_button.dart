@@ -1,3 +1,5 @@
+import 'package:el_wekala/core/helper/cash_helper/cash_helper.dart';
+import 'package:el_wekala/core/helper/values.dart';
 import 'package:el_wekala/core/utils/colors/colors.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_cubit.dart';
 import 'package:el_wekala/feature/auth/cubit/auth_state.dart';
@@ -29,19 +31,22 @@ class LoginButton extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: red,
+                    duration: Durations.medium4,
                 content: Text(state.model.message),
               ),
             );
           }
           if (state.model.status == "success") {
             print("current state is success");
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                    duration: Durations.medium4,
                 backgroundColor: green,
                 content: Text(state.model.message),
               ),
             );
-            await context.read<ProfileCubit>().getProfileCubit();
+            await context.read<ProfileCubit>().getProfile();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -50,6 +55,8 @@ class LoginButton extends StatelessWidget {
                 },
               ),
             );
+            isLogin = false;
+            await CashHelper.saveBool(key: "loginKey", value: isLogin);
           }
         }
       },
@@ -58,7 +65,10 @@ class LoginButton extends StatelessWidget {
         onPressed: () {
           if (!formKey.currentState!.validate()) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Please fix errors in the form")),
+              SnackBar(
+                content: Text("Please fix errors in the form"),
+                duration: Durations.medium4,
+              ),
             );
             return;
           }

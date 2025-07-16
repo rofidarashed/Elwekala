@@ -1,17 +1,18 @@
-sealed class CartState {}
 
-final class CartInitial extends CartState {}
+import 'package:el_wekala/feature/cart/model/cart_model.dart';
 
-final class CartLoadingState extends CartState {}
+abstract class CartState {}
 
-final class CartAddSuccessState extends CartState {}
+class CartInitialState extends CartState {}
 
-final class CartUpdateState extends CartState {}
+class CartLoadingState extends CartState {}
 
-final class CartGetState extends CartState {
-  final List<dynamic> list;
-
-  CartGetState({required this.list});
+class CartGetState extends CartState {
+  final List<CartModel> list;
+  CartGetState(this.list);
 }
 
-final class CartDeleteState extends CartState {}
+class CartErrorState extends CartState {
+  final String message;
+  CartErrorState(this.message);
+}

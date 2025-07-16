@@ -4,38 +4,59 @@ import 'package:el_wekala/feature/profile/data/profile_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  bool isEdit = true;
+
+  ProfileCubit() : super(ProfileInitialState());
 
   static ProfileCubit get(context) => BlocProvider.of(context);
 
-  bool isEdit = true;
-
-  edit() {
-    isEdit = false;
-    emit(ProfileEditState());
-    getProfileCubit();
-  }
-
-  cancelEdit() {
-    isEdit = true;
-    emit(ProfileEditState());
-    getProfileCubit();
-  }
-
-  getProfileCubit() async {
+  Future<void> getProfile() async {
     emit(ProfileLoadingState());
-    var model = await ProfileData.profile(token: token);
-    emit(ProfileGetDataSuccessState(model: model));
+    try {
+      final profile = await ProfileData.profile(token: token);
+      emit(ProfileGetDataSuccessState(profile));
+    } catch (e) {
+      emit(ProfileErrorState(e.toString()));
+    }
   }
 
-  updateProfileCubit({
+  Future<void> updateProfile({
     required String name,
     required String email,
     required String phone,
   }) async {
-    emit(ProfileLoadingState());
-    await ProfileData.updateProfile(name: name, email: email, phone: phone);
+    try {
+      emit(ProfileLoadingState());
+      await ProfileData.updateProfile(name: name, email: email, phone: phone);
+      await getProfile();
+      isEdit = true;
+      emit(ProfileGetDataSuccessState(await ProfileData.profile(token: token)));
+    } catch (e) {
+      emit(ProfileErrorState(e.toString()));
+    }
+  }
+
+  Future<void> deleteProfile() async {
+    try {
+      emit(ProfileLoadingState());
+      await ProfileData.deleteProfile();
+      emit(ProfileDeleteState());
+    } catch (e) {
+      emit(ProfileErrorState(e.toString()));
+    }
+  }
+
+  void toggleEdit() {
+    isEdit = !isEdit;
+    if (state is ProfileGetDataSuccessState) {
+      emit((state as ProfileGetDataSuccessState).copyWith());
+    }
+  }
+
+  void cancelEdit() {
     isEdit = true;
-    getProfileCubit();
+    if (state is ProfileGetDataSuccessState) {
+      emit((state as ProfileGetDataSuccessState).copyWith());
+    }
   }
 }

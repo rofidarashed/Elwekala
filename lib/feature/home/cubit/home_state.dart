@@ -11,4 +11,4 @@ class HomeSuccess extends HomeState {
   HomeSuccess({required this.list});
 }
 
-class HomeFailed extends HomeState {}
+class HomeError extends HomeState {}

@@ -28,11 +28,12 @@ class RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthAddSuccessState) {
           if (state.model.status == "error") {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                duration: Durations.medium4,
                 backgroundColor: red,
                 content: Text(state.model.message),
               ),
@@ -46,9 +47,17 @@ class RegisterButton extends StatelessWidget {
                 content: Text(state.model.message),
               ),
             );
-             ScaffoldMessenger.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                duration: Durations.medium4,
+                backgroundColor: green,
+                content: Text(state.model.message),
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: green,
+                duration: Durations.medium4,
                 content: Text("You're all set! Log in to get started. 😊"),
               ),
             );
@@ -63,7 +72,10 @@ class RegisterButton extends StatelessWidget {
               );
             } catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Failed to load profile: $e")),
+                SnackBar(
+                  duration: Durations.medium4,
+                  content: Text("Failed to load profile: $e"),
+                ),
               );
             }
           }
@@ -74,7 +86,10 @@ class RegisterButton extends StatelessWidget {
         onPressed: () {
           if (!formKey.currentState!.validate()) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Please fix errors in the form")),
+              SnackBar(
+                content: Text("Please fix errors in the form"),
+                duration: Durations.medium4,
+              ),
             );
             return;
           }

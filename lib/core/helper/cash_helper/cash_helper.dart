@@ -14,4 +14,11 @@ class CashHelper {
  static getData({required String key}) {
     return sharedPreferences?.getString(key);
   }
+   static saveBool({required String key, required bool value}) {
+    return sharedPreferences?.setBool(key, value);
+  }
+
+ static getBool({required String key}) {
+    return sharedPreferences?.getBool(key);
+  }
 }

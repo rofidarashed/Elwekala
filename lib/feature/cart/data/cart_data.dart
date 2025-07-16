@@ -31,10 +31,10 @@ class CartData {
 
   static updateCart({
     required String productId,
-    required num quantity,
+    required int quantity,
   }) async {
     var response = await dio.post(
-      "https://elwekala.onrender.com/cart",
+      "https://elwekala.onrender.com/cart/update",
       data: {
         "nationalId": "01026524572123",
         "productId": productId,

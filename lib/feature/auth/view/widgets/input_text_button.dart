@@ -11,6 +11,7 @@ class InputTextButton extends StatelessWidget {
   final TextInputType? textInputType;
   final List<TextInputFormatter>? textInputFormatter;
   final IconData? prefixIcon;
+  final FloatingLabelBehavior? floatingLabelBehavior;
   const InputTextButton({
     super.key,
     required this.labelText,
@@ -20,7 +21,7 @@ class InputTextButton extends StatelessWidget {
     required this.obscureText,
     this.textInputType,
     this.textInputFormatter,
-    this.prefixIcon,
+    this.prefixIcon, this.floatingLabelBehavior,
   });
 
   @override
@@ -35,6 +36,7 @@ class InputTextButton extends StatelessWidget {
         keyboardType: textInputType,
         inputFormatters: textInputFormatter,
         decoration: InputDecoration(
+          floatingLabelBehavior: floatingLabelBehavior ?? FloatingLabelBehavior.always,
           prefixIcon: Icon(prefixIcon, color: defaultColor),
           label: Text(labelText),
           labelStyle: TextStyle(color: defaultColor),

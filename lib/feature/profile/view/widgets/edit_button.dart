@@ -14,13 +14,19 @@ Stack editButton(ProfileGetDataSuccessState state, BuildContext context) {
           backgroundImage: NetworkImage(state.model.profileImage),
         ),
       ),
-      IconButton(
-        style: IconButton.styleFrom(backgroundColor: defaultColor),
-        onPressed: () async {
-          ProfileCubit.get(context).edit();
-        },
-        icon: Icon(Icons.edit, color: white, size: 22),
-      ),
+      ProfileCubit.get(context).isEdit
+          ? IconButton(
+              style: IconButton.styleFrom(backgroundColor: defaultColor),
+              onPressed: () async {
+                ProfileCubit.get(context).toggleEdit();
+              },
+              icon: Icon(Icons.edit, color: white, size: 22),
+            )
+          : IconButton(
+              style: IconButton.styleFrom(backgroundColor: defaultColor),
+              onPressed: () {},
+              icon: Icon(Icons.camera_alt_outlined, color: white, size: 22),
+            ),
     ],
   );
 }

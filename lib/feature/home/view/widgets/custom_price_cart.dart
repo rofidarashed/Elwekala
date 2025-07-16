@@ -26,4 +26,3 @@ class CustomPriceAndCartIcon extends StatelessWidget {
     );
   }
 }
-

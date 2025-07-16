@@ -29,4 +29,13 @@ class ProfileData {
       },
     );
   }
+  static deleteProfile() async {
+    await dio.delete(
+      "https://elwekala.onrender.com/user/delete",
+      data: {
+        "token": token,
+      "email":email,
+      },
+    );
+  }
 }

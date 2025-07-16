@@ -9,6 +9,7 @@ class CartModel {
   final String image;
   final List<dynamic> images;
   final String company;
+  final String nationalID;
 
   CartModel({
     required this.quantity,
@@ -21,6 +22,7 @@ class CartModel {
     required this.image,
     required this.images,
     required this.company,
+    required this.nationalID,
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class CartModel {
       images: json["images"] as List<dynamic>? ?? [],
       company: json['company'] ?? '',
       quantity: json["quantity"],
+      nationalID: json["nationalID"] ?? '',
     );
   }
 }
